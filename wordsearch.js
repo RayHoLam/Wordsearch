@@ -14,8 +14,10 @@ newWordsButton.addEventListener("click", generateNewWords);
 wordSearchDiv.addEventListener("mouseleave", resetSelection);
 
 function generateNewWords() {
+    console.log("New game started");
     resetGame();
     words = getRandomWords(initialWords, 10);
+    console.log("Words generated:", words);
     generateGrid();
     updateWordList();
 }
