@@ -1,7 +1,9 @@
 const initialWords = ["APPLE", "BANANA", "CHERRY", "DURIAN", "ELDERBERRY", "FIG", "GRAPE", "HONEYDEW", "KIWI", "LEMON", "MANGO", "NECTARINE", "ORANGE", "PAPAYA", "QUINCE", "RASPBERRY", "STRAWBERRY", "TANGERINE", "WATERMELON", "VANILLA", "PIZZA", "BURGER", "PASTA", "ICECREAM", "TACO", "BROWNIE", "CUPCAKE", "DUMPLING", "EGG", "FRUITCAKE", "GRANOLA", "HAMBURGER", "JELLY", "KETCHUP", "LASAGNA", "MEATBALL", "NOODLES", "OATMEAL", "QUICHE", "RAVIOLI", "SUSHI", "TORTILLA", "YOGURT", "ZUCCHINI", "AVOCADO", "BISCUIT", "CROISSANT", "DONUT", "GINGER", "JAM", "KALBI", "LOBSTER", "MOUSSE", "NACHOS", "OUTBACK", "POTATO", "QUINOA", "RICE", "SAUSAGE", "VERMICELLI", "WAFFLE", "XMAS COOKIES", "YAKITORI"];
+
 document.addEventListener("DOMContentLoaded", function() {
     generateNewWords();
 });
+
 let words = [];
 const gridSize = 10;
 let grid = Array.from({ length: gridSize }, () => Array(gridSize).fill(""));
@@ -28,9 +30,7 @@ function getRandomWords(arr, num) {
     const shuffled = arr.slice();
     for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        const temp = shuffled[i];
-        shuffled[i] = shuffled[j];
-        shuffled[j] = temp;
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
     return shuffled.slice(0, num);
 }
@@ -53,21 +53,31 @@ function generateGrid() {
 
 function placeWord(word) {
     const direction = Math.random() < 0.5 ? "horizontal" : "vertical";
-    let placed = false;
+    
+    const shuffledNumbers = function() {
+        const numbers = Array.from({ length: gridSize }, (_, i) => i);
+        for (let i = numbers.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+        }
+        return numbers;
+    };
 
-    while (!placed) {
-        const row = Math.floor(Math.random() * gridSize);
-        const col = Math.floor(Math.random() * gridSize);
-
-        if (canPlaceWord(word, row, col, direction)) {
-            for (let i = 0; i < word.length; i++) {
-                if (direction === "horizontal") {
-                    grid[row][col + i] = word[i];
-                } else {
-                    grid[row + i][col] = word[i];
+    const rows = shuffledNumbers();
+    const cols = shuffledNumbers();
+    
+    for (let row of rows) {
+        for (let col of cols) {
+            if (canPlaceWord(word, row, col, direction)) {
+                for (let i = 0; i < word.length; i++) {
+                    if (direction === "horizontal") {
+                        grid[row][col + i] = word[i];
+                    } else {
+                        grid[row + i][col] = word[i];
+                    }
                 }
+                return;
             }
-            placed = true;
         }
     }
 }
@@ -199,12 +209,3 @@ function resetSelection() {
         cell.classList.remove("selected");
     });
 }
-
-function resetSelectionOnMouseLeave() {
-    if (isSelecting) {
-        resetSelection();
-    }
-}
-
-wordSearchDiv.addEventListener("mouseleave", resetSelectionOnMouseLeave);
-document.addEventListener("DOMContentLoaded", generateNewWords);
