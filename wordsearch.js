@@ -168,6 +168,10 @@ function checkForWord() {
     if (words.includes(selectedLetters)) {
         foundWords.push(selectedLetters);
         highlightFoundWord(selectedLetters);
+
+        if (foundWords.length === 10) {
+            alert("Congratulations! You've found all the words!");
+        }
     } else {
         resetSelection();
     }
