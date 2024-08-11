@@ -18,6 +18,21 @@ body {
     background-color: white;
 }
 
+button {
+    background-color: #F4F5F0;
+    color: black;
+    border: none;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 35px 0px;
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
 h1 {
   color: #333;
 }
