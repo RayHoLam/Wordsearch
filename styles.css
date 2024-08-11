@@ -37,14 +37,21 @@ h1 {
   color: #333;
 }
 
+#game-container {
+    display: flex;
+    justify-content: center; 
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
 #word-search {
-  display: grid;
-  grid-template-columns: repeat(10, 30px);
-  margin: 20px auto;
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  background-color: white;
-  max-width: 320px;
+    display: grid;
+    grid-template-columns: repeat(10, 30px);
+    margin-right: 20px; 
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    max-width: 320px; 
 }
 
 .cell {
