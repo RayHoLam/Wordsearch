@@ -16,6 +16,8 @@ body {
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 1), 
         -4px -4px 10px rgba(255, 255, 255, 0.2);
     background-color: white;
+    min-width: 600px;
+    min-hight: 600px;
 }
 
 button {
