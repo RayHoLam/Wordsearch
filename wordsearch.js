@@ -53,8 +53,7 @@ function generateGrid() {
 
 function placeWord(word) {
     const direction = Math.random() < 0.5 ? "horizontal" : "vertical";
-    
-    const shuffledNumbers = function() {
+    const shuffledNumbers = () => {
         const numbers = Array.from({ length: gridSize }, (_, i) => i);
         for (let i = numbers.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -76,10 +75,30 @@ function placeWord(word) {
                         grid[row + i][col] = word[i];
                     }
                 }
+                console.log(`Placed "${word}" at (${row}, ${col}) ${direction}`);
                 return;
             }
         }
     }
+}
+
+function checkForWord() {
+    const selectedLetters = selectedCells.map(cell => grid[cell.row][cell.col]).join("");
+    console.log("Selected Letters:", selectedLetters);
+
+    if (words.includes(selectedLetters)) {
+        foundWords.push(selectedLetters);
+        highlightFoundWord(selectedLetters);
+        console.log("Found Word:", selectedLetters);
+
+        if (foundWords.length === words.length) { // Check against total words
+            alert("Congratulations! You've found all the words!");
+        }
+    } else {
+        console.log("Word not found");
+        resetSelection();
+    }
+    selectedCells = [];
 }
 
 function canPlaceWord(word, row, col, direction) {
