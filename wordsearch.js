@@ -64,21 +64,33 @@ function placeWord(word) {
 
     const rows = shuffledNumbers();
     const cols = shuffledNumbers();
-    
-    for (let row of rows) {
-        for (let col of cols) {
-            if (canPlaceWord(word, row, col, direction)) {
-                for (let i = 0; i < word.length; i++) {
-                    if (direction === "horizontal") {
-                        grid[row][col + i] = word[i];
-                    } else {
-                        grid[row + i][col] = word[i];
+    let placed = false;
+    const maxAttempts = 1000; 
+    let attempts = 0;
+
+    while (!placed && attempts < maxAttempts) {
+        attempts++;
+        for (let row of rows) {
+            for (let col of cols) {
+                if (canPlaceWord(word, row, col, direction)) {
+                    for (let i = 0; i < word.length; i++) {
+                        if (direction === "horizontal") {
+                            grid[row][col + i] = word[i];
+                        } else {
+                            grid[row + i][col] = word[i];
+                        }
                     }
+                    console.log(`Placed "${word}" at (${row}, ${col}) ${direction}`);
+                    placed = true;
+                    break; 
                 }
-                console.log(`Placed "${word}" at (${row}, ${col}) ${direction}`);
-                return;
             }
+            if (placed) break; 
         }
+    }
+
+    if (!placed) {
+        console.warn(`Failed to place "${word}" after ${maxAttempts} attempts`);
     }
 }
 
@@ -148,6 +160,10 @@ function displayGrid() {
             });
             cellDiv.addEventListener("mouseup", endSelection);
             wordSearchDiv.appendChild(cellDiv);
+
+            if (words.includes(cell)) {
+                cellDiv.classList.add("highlight");
+            }
         });
     });
 }
