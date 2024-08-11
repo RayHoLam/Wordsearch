@@ -65,7 +65,7 @@ h1 {
 }
 
 .found {
-  background-color: blue;
+  background-color: lightblue;
   color: white;
   transition: background-color 0.3s;
 }
