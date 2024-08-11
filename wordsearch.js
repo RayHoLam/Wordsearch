@@ -1,5 +1,7 @@
 const initialWords = ["APPLE", "BANANA", "CHERRY", "DURIAN", "ELDERBERRY", "FIG", "GRAPE", "HONEYDEW", "KIWI", "LEMON", "MANGO", "NECTARINE", "ORANGE", "PAPAYA", "QUINCE", "RASPBERRY", "STRAWBERRY", "TANGERINE", "WATERMELON", "VANILLA", "PIZZA", "BURGER", "PASTA", "ICECREAM", "TACO", "BROWNIE", "CUPCAKE", "DUMPLING", "EGG", "FRUITCAKE", "GRANOLA", "HAMBURGER", "JELLY", "KETCHUP", "LASAGNA", "MEATBALL", "NOODLES", "OATMEAL", "QUICHE", "RAVIOLI", "SUSHI", "TORTILLA", "YOGURT", "ZUCCHINI", "AVOCADO", "BISCUIT", "CROISSANT", "DONUT", "GINGER", "JAM", "KALBI", "LOBSTER", "MOUSSE", "NACHOS", "OUTBACK", "POTATO", "QUINOA", "RICE", "SAUSAGE", "VERMICELLI", "WAFFLE", "XMAS COOKIES", "YAKITORI"];
-
+document.addEventListener("DOMContentLoaded", function() {
+    generateNewWords();
+});
 let words = [];
 const gridSize = 10;
 let grid = Array.from({ length: gridSize }, () => Array(gridSize).fill(""));
